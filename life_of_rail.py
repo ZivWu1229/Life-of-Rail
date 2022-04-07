@@ -1,5 +1,6 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
+import os
 
 app = Ursina()
 rail = []
@@ -34,10 +35,18 @@ class Rail():
         self.middle= Entity(position=data['position'],rotation=(0,data['heading'],0),)
         self.rail1 = Entity(parent=self.middle,x=-1.5,z=data['position'][2]+(data['length']/2),model='cube',scale=(0.25,0.25,data['length']),collision=True,collider='box',color=color.rgb(128,64,0))
         self.rail2 = Entity(parent=self.middle,x= 1.5,z=data['position'][2]+(data['length']/2),model='cube',scale=(0.25,0.25,data['length']),collision=True,collider='box',color=color.rgb(128,64,0))
-        
+
+class Train(Entity):
+    def __init__(self):
+        super().__init__(
+            model='\\assets\\train\\Amtrak\\model\\f59phi\\f59phi.obj',
+            texture='\\assets\\texture\\train.png',
+            color=rgb(100,100,100)
+        )
 
 floor = Entity(model='plane', scale=(1000,5,1000), color=color.rgb(0,100,0),collision = True,collider='plane')
 player = FirstPersonController(height=20)
+train = Train()
 
 class Continue_button(Button):
     def __init__(self):
